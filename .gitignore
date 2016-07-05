@@ -1,0 +1,12 @@
+.Rproj.user
+.Rproj
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+.gitattributes
+TODO.txt
+data_private
+docs
+thesis2016.Rproj
+tmp
