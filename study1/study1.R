@@ -79,5 +79,11 @@ median_nnmax(mean=0.425, sd=0.785, sdm=1.141, k=21.1)
 #source("study1/table6.R")
 
 ## figure 8
-#source("study1/figure8.R")
+source("study1/figure8.R")
+
+# range of bias plotted for minimla bias
+bias$min
+
+# range of RRs plotted for minimal bias
+rr$min
 

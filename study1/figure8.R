@@ -1,12 +1,13 @@
 source("study1/functions.R")
 source("equations.R")
 png(filename = "output/figure8.png",width = 550, height = 900)
-## parameters for medium bias
+
+## parameters suggested for medium bias
 zeta_m=.03
 ICC_m=.50
 k_m=20
 
-## parameters for low bias
+## parameters suggested for low bias
 zeta_l=.015
 ICC_l=.75
 k_l=15
@@ -84,7 +85,7 @@ legend(legpos,
 
 op=par(no.readonly=TRUE) 
 par(mfcol=c(3,1), mar=c(6,5.5,1,2), cex=1)
-plotit(x, type1, log="x", ylim=c(0,100), ylab="Positive type-1 error rate (%)")
+plotit(x, type1, log="x", ylim=c(0,100), ylab="Positive tail type-1 error rate (%)")
 plotit(x, bias, log="x", ylim=c(0,4), ylab="Expected standardized bias (z-score)")
 plotit(x, rr, log="xy", ylim=c(1,3), legpos="topright", ylab="Expected Relative Risk (RR)\n*based on Åkerstedt et al (2013)")
 
