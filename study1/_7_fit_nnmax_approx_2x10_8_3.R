@@ -17,17 +17,6 @@ p=d$n/sum(d$n)
 pr3=sum(p*d$incidence100k10y/100000)
 pr=mean(c(pr1, pr2, pr3))
 
-nnmax2approx.mle = function(data, ICC=.50, k=1, zeta=.01, pr=.02, n=c(5000, 20000),
-                              method="BFGS", trace=6, report=1) {
-  nll=function(zeta) {
-    sum(-log(dnnmax(x=data[[1]], mean=zeta*sqrt(n[[1]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) + 
-      sum(-log(dnnmax(x=data[[2]], mean=zeta*sqrt(n[[2]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) 
-  }
-  
-  fit=mle(nll, start=list(zeta=zeta), nobs=NROW(data),
-          method=method, control=list(trace=trace, REPORT=report))
-  list(fitted=fit, fixed=list(ICC=ICC, k=k, n=n, pr=pr))
-}
 
 ICC=nnmax_zadj_2x10_8_3$fixed$sd^2/
   (nnmax_zadj_2x10_8_3$fixed$sd^2 + nnmax_zadj_2x10_8_3$fitted[[1]][["sdm"]]^2)

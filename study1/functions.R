@@ -87,3 +87,29 @@ nnmax2constr.mle = function(data, mean=list(0,0), sd=1, sdm=1, k=1, method="BFGS
   list(fitted=fit, fixed=list(mean=mean, sd=sd))
 }
 
+# fit approximate estimation based on ICC, k & zeta on three datasests with different n
+nnmax3approx.mle = function(data, ICC=.50, k=1, zeta=.01, pr=.02, n=c(5000, 20000, 10^5),
+                            method="BFGS", trace=6, report=1) {
+  nll=function(zeta) {
+    sum(-log(dnnmax(x=data[[1]], mean=zeta*sqrt(n[[1]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) + 
+      sum(-log(dnnmax(x=data[[2]], mean=zeta*sqrt(n[[2]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) +
+      sum(-log(dnnmax(x=data[[3]], mean=zeta*sqrt(n[[3]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k)))
+  }
+  
+  fit=mle(nll, start=list(zeta=zeta), nobs=NROW(data),
+          method=method, control=list(trace=trace, REPORT=report))
+  list(fitted=fit, fixed=list(sd=sd, sdm=sdm, k=k, n=n, pr=pr))
+}
+
+# fit approximate estimation based on ICC, k & zeta on two datasests with different n
+nnmax2approx.mle = function(data, ICC=.50, k=1, zeta=.01, pr=.02, n=c(5000, 20000),
+                            method="BFGS", trace=6, report=1) {
+  nll=function(zeta) {
+    sum(-log(dnnmax(x=data[[1]], mean=zeta*sqrt(n[[1]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) + 
+      sum(-log(dnnmax(x=data[[2]], mean=zeta*sqrt(n[[2]]*pr), sd=sqrt(ICC), sdm=sqrt(1-ICC), k=k))) 
+  }
+  
+  fit=mle(nll, start=list(zeta=zeta), nobs=NROW(data),
+          method=method, control=list(trace=trace, REPORT=report))
+  list(fitted=fit, fixed=list(ICC=ICC, k=k, n=n, pr=pr))
+}
